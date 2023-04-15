@@ -23,7 +23,7 @@ export default function FoodList({ foods }) {
           onChange={handleSearch}
         />
       </div>
-
+      {filteredFoods.length !== 0 && (
         <ul className="food-list">
           {filteredFoods.map(food => (
             <li key={food._id}>
@@ -31,6 +31,14 @@ export default function FoodList({ foods }) {
             </li>
           ))}
         </ul>
+      )}
+      {filteredFoods.length === 0 && (
+        <>
+        <p className="no-results">No results found for "{query}"</p>
+        <button className="btn" onClick={() => setQuery('')}>Clear search</button>
+        </>
+      )}
+        
     </>
   );
 }

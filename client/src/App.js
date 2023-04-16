@@ -5,7 +5,7 @@ import * as foodService from './services/foodService';
 
 import './App.css';
 
-import CreateItem from './components/CreateItem/CreateItem';
+import CreateFood from './components/CreateFood/CreateFood';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
@@ -21,6 +21,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/foods' element={<FoodList />} />
+        <Route path='/create' element={<CreateFood />} />
       </Routes>
     </FoodsProvider>
   );

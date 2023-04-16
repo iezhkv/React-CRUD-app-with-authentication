@@ -5,6 +5,7 @@ import * as foodService from './services/foodService';
 
 import './App.css';
 
+import SingleFood from './components/SingleFood/SingleFood';
 import CreateFood from './components/CreateFood/CreateFood';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
@@ -18,10 +19,11 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/create' element={<CreateFood />} />
+        <Route path='/foods/:id' element={<SingleFood />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/foods' element={<FoodList />} />
-        <Route path='/create' element={<CreateFood />} />
       </Routes>
     </FoodsProvider>
   );

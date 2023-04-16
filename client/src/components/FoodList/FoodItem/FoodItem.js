@@ -18,7 +18,6 @@ export default function FoodItem(foodItem) {
         </div>
         <div className="food-item__info">
             <h3>{foodItem.name}</h3>
-            <p>{foodItem.description}</p>
             <p>{formatCurrency(foodItem.price)}</p>
         </div>
         <button className='add-to-card' onClick={addToCartHandler}>

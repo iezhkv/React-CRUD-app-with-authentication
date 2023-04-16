@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import FoodItem from './FoodItem/FoodItem';
 import './FoodList.css';
+import { FoodsContext } from '../../contexts/FoodContext';
 
-export default function FoodList({ foods }) {
+export default function FoodList() {
+  const { foods } = useContext(FoodsContext);
   const [query, setQuery] = useState('');
 
   const handleSearch = event => {
@@ -33,6 +35,7 @@ export default function FoodList({ foods }) {
         </ul>
       )}
       {filteredFoods.length === 0 && (
+
         <>
         <p className="no-results">No results found for "{query}"</p>
         <button className="btn" onClick={() => setQuery('')}>Clear search</button>

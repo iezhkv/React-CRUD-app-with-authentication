@@ -1,14 +1,18 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { FoodsContext } from '../../contexts/FoodContext';
 import { create } from '../../services/foodService';
 import {useNavigate} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import './CreateFood.css';
 
 
 
 
-export default function CreateFood() {
+export default function CreateFood({edit = false}) {
+  const { id } = useParams();
+  const { foods } = useContext(FoodsContext);
+  let foodToBeEdited = null;
 
   const [submittionFailed, setSubmittionFailed] = useState(false);
 
@@ -22,6 +26,27 @@ export default function CreateFood() {
     description: '',
   });
 
+  if (edit) {
+    foodToBeEdited = foods.find((food) => food._id === id);
+    console.log(foodToBeEdited);
+    
+  }
+  useEffect(() => {
+    if (edit && foodToBeEdited) {
+      setFormData({
+        name: foodToBeEdited.name,
+        price: foodToBeEdited.price,
+        cookTime: foodToBeEdited.cookTime,
+        image: foodToBeEdited.image,
+        description: foodToBeEdited.description,
+      });
+    }
+    else {
+      clearFormData();
+      //TODO: deal with clearing the form data
+    }
+  }, [edit, foodToBeEdited]);
+
   const handleInputChange = (event) => {
     setFormData({
       ...formData,
@@ -32,24 +57,28 @@ export default function CreateFood() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const newFood = await create(formData);
-      setFoods((prevFoods) => [...prevFoods, newFood]);
-      setFormData({
-        name: '',
-        price: '',
-        cookTime: '',
-        image: '',
-        description: '',
-      });
-      //navigate to foods
+      if (edit) {
 
-      navigate('/foods');
+      }
+      else {
+        createOne();
+      }
+      clearFormData();
+
 
     } catch (error) {
       console.error(error);
       setSubmittionFailed(true);
     }
   };
+
+  const createOne = async () => {
+    const newFood = await create(formData);
+    setFoods((prevFoods) => [...prevFoods, newFood]);
+    navigate(`/foods/${newFood._id}`);
+  };
+
+ 
 
   return (
     <div>
@@ -90,7 +119,9 @@ export default function CreateFood() {
         value={formData.description} 
         onChange={handleInputChange} />
 
-        <button type="submit">Create Food Item</button>
+        {edit && <button type="submit">Edit</button>}
+        {!edit && <button type="submit">Create</button>}
+
       </form>
 
       {submittionFailed && 
@@ -103,4 +134,18 @@ export default function CreateFood() {
       }
     </div>
   );
+
+  
+  
+  function clearFormData() {
+    setFormData({
+      name: '',
+      price: '',
+      cookTime: '',
+      image: '',
+      description: '',
+    });
+  }
+
+
 }

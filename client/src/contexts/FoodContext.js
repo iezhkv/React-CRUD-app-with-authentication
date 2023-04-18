@@ -8,11 +8,8 @@ export function FoodsProvider(props) {
 
   useEffect(() => {
     foodService.getAll().then((data) => {
-      const formattedData = data.map((item) => ({
-        ...item,
-        price: `${Number(item.price).toFixed(2)}лв.`,
-      }));
-      setFoods(formattedData);
+      
+      setFoods(data);
     });
   }, []);
 

@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { FoodsContext } from '../../contexts/FoodContext'
 import { useContext } from 'react'
+import { Link } from 'react-router-dom'
 
 import './SingleFood.css'
 
@@ -20,6 +21,9 @@ export default function SingleFood() {
         <p>{food.price}</p>
         <p>{food.description}</p>
         <p>{food.cookTime}</p>
+        <Link to={`/edit/${food._id}`}>
+            <button className='edit-button'>Edit</button>
+        </Link>
         
     </div>
   )

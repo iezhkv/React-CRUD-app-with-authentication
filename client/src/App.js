@@ -20,6 +20,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/create' element={<CreateFood />} />
+        <Route path='/edit/:id' element={<CreateFood edit={true}/>} />
+
         <Route path='/foods/:id' element={<SingleFood />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
